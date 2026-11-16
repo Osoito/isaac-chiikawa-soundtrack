@@ -1,0 +1,104 @@
+# Chiikawa Soundtrack for The Binding of Isaac: Repentance+
+
+A Soundtrack Menu compatible music mod. Registers a soundtrack named `Chiikawa`
+covering all 85 controllable music slots. Published on the Steam Workshop as item
+[3787641648](https://steamcommunity.com/sharedfiles/filedetails/?id=3787641648).
+
+16 lossless masters have to fill 85 slots, 22 of which are jingles that need a
+five second phrase cut out of a full track at a musically sensible point. This
+repository is the build that does it. One file holds the slot mapping and the cut
+points, everything else is generated from it, a checker refuses to produce a build
+that would fall back to vanilla audio, and a Lua harness verifies the result
+inside the running game.
+
+[docs/design.md](docs/design.md) records the reasoning behind each decision.
+
+## Layout
+
+| Path | What it is |
+|---|---|
+| `audio_master/` | 16 lossless FLAC masters. The source of truth for audio. Not committed. |
+| `_source_mp4/` | Archived original MP4s the masters were extracted from. Not committed. |
+| `build/tracks.py` | Slot mapping and cut points. **The file to edit.** |
+| `cover.png` | Workshop cover art, hand-drawn. The source copy. |
+| `mod/` | The mod itself. Generated files are marked in their headers. |
+
+`mod/previewpic.png` is `cover.png` flattened to RGB. That is the file the Workshop
+uses. To change the cover, replace `cover.png` and re-flatten it; nothing regenerates
+it automatically, so hand-drawn art cannot be overwritten by a build.
+
+## Commands
+
+Rebuild everything and install a dev build into the game:
+
+```powershell
+python build/build_audio.py; python build/build_xml.py; python build/verify.py; python build/deploy.py
+```
+
+Individually:
+
+| Command | Does |
+|---|---|
+| `python build/tracks.py` | Validate the slot mapping only. Instant. |
+| `python build/build_audio.py` | FLAC → 38 ogg files, with loudness normalisation. |
+| `python build/build_audio.py --jingles` | Rebuild only the 22 jingle clips. |
+| `python build/build_xml.py` | Regenerate `music.xml` and `dev_slots.lua`. No audio. |
+| `python build/verify.py` | Layer 1 machine checks. Non-zero exit on FAIL. |
+| `python build/audition.py` | Build the jingle audition page. |
+| `python build/deploy.py` | Install a dev build (includes the console harness). |
+| `python build/deploy.py --release` | Install without the dev harness. |
+| `python build/deploy.py --dry-run` | List what would be copied. |
+
+## Adjusting a jingle cut
+
+Every jingle's cut offset lives in `build/tracks.py` under `JINGLES`. A `start` of
+`None` means the offset was chosen automatically; the chosen value is recorded in
+`build/cut_points.json`. To pin one:
+
+```python
+27: dict(master="H", length=5.0, start=21.1, search=None, ...)
+```
+
+Then `python build/build_audio.py --jingles` and `python build/audition.py`.
+
+## In-game verification
+
+A dev build registers three console commands:
+
+| Command | Does |
+|---|---|
+| `chiikawa_check` | Resolve all 85 track names, list any that fall back to vanilla. |
+| `chiikawa_jingle <n>` | Play one jingle by slot number. |
+| `chiikawa_jingle all` | Walk all 22 jingles, 3 s apart. `stop` cancels. |
+| `chiikawa_music <n>` | Play a looping track by slot number. |
+
+On load the harness prints `Chiikawa dev harness ready`. If a dev build does not print
+that line, the harness failed to load.
+
+## Publishing to the Steam Workshop
+
+1. `python build/deploy.py --release`, installs without the dev harness or build marker.
+2. Close the game, then run `tools\ModUploader\ModUploader.exe` from the game folder.
+3. Pick **Chiikawa Soundtrack**, confirm the preview image, upload.
+4. Leave `<visibility>` as `Private` for the first upload, check the item on the
+   Workshop, then switch it to `Public` and upload again.
+
+On first publish the uploader writes the Workshop item id into the *installed*
+`metadata.xml`. Run `python build/deploy.py --release` once afterwards. It reads that id
+back into `mod/metadata.xml`, so later uploads update the same item and do not create a
+second one. Do not delete the `<id>` element once it exists.
+
+## Requirements
+
+- Soundtrack Menu (`1933285222`)
+- Music Mod Callback, Repentance/Rep+ version (`2491006386`), or REPENTOGON
+- Mod Config Menu, to select the soundtrack
+
+## What is not here
+
+No audio. The masters are copyrighted material from the *Chiikawa* franchise and are
+not mine to redistribute, so `audio_master/`, `_source_mp4/` and the built
+`mod/resources/` are excluded. Drop your own masters into `audio_master/`, name them
+to match the `MASTERS` table in `build/tracks.py`, and the pipeline runs end to end.
+
+`cover.png` and `mod/previewpic.png` are hand-drawn and are included.

@@ -1,0 +1,20 @@
+# Source audio and built tracks. Copyrighted material from the Chiikawa
+# franchise: not mine to redistribute. Put your own masters in audio_master/
+# and run the pipeline.
+audio_master/
+_source_mp4/
+mod/resources/
+
+# Generated
+build/audition.html
+build/candidates_32.html
+build/verify_report.json
+build/cut_points.json
+
+# Process notes and task plans, not product documentation
+docs/superpowers/
+
+# Python
+__pycache__/
+*.pyc
+build/.cache/

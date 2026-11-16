@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>Chiikawa Soundtrack</name>
+    <directory>chiikawa soundtrack</directory>
+    <id>3787641648</id>
+    <description>Replaces the game's music with the soundtrack of the anime [b]Chiikawa[/b] (ちいかわ).
+
+[h1]REQUIRES[/h1]
+[list]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1933285222]Soundtrack Menu[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3127536138]REPENTOGON[/url] [i]OR[/i] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2491006386]Music Mod Callback (Repentance/Rep+)[/url] — one, not both
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3701683951]Mod Config Menu[/url], to select the soundtrack
+[/list]
+
+[h1]HOW TO USE[/h1]
+Start a run, then open the Mod Config Menu (F10 or L) and go to [b]Set Soundtrack[/b] → [b]Chiikawa[/b].
+
+The soundtrack registers itself when a run begins, so it will not appear in the menu until you have started one.
+
+You can also pick it per-track under [b]Custom[/b], mixing Chiikawa music with any other soundtrack you have installed.
+
+[h1]WHAT IS COVERED[/h1]
+All music and jingles.
+Some tracks are reused across related slots. There are in total 16 pieces of music used in the mod.
+
+Without REPENTOGON the title screen, run-start and nightmare jingles are not controllable by any soundtrack mod, so they are unchanged.
+
+[h1]NOTES[/h1]
+Every track is loudness-matched so the volume does not change from floor to floor. The mix sits a little below the vanilla soundtrack, so you may want to raise the music slider a notch after switching to it.
+
+All music belongs to its original rights holders. This mod is a fan work and is not affiliated with or endorsed by them.</description>
+    <version>1.3</version>
+    <visibility>Public</visibility>
+    <tag id="Sound Effects"/>
+    <tag id="Music"/>
+</metadata>
