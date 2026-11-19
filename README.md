@@ -6,6 +6,18 @@ A Soundtrack Menu compatible music mod. Registers a soundtrack named `Chiikawa` 
 
 [docs/design.md](docs/design.md) records the reasoning behind each decision.
 
+The mod itself is a Workshop subscription. How it was built is not, and that is what this repository is for.
+
+## What you can take from this
+
+**A wrong resource path fails silently in Isaac.** The engine falls back to its own asset and says nothing, so no build-side check can catch it. That one fact is why this repository has a Lua harness ([`mod/dev_slots.lua`](mod/dev_slots.lua), [`mod/dev_jingle_test.lua`](mod/dev_jingle_test.lua)) that resolves all 85 track names from inside the running game and lists the ones that fell back. If you are modding anything where the engine swallows your mistakes, that is the pattern.
+
+**One file holds the mapping, everything else is generated.** [`build/tracks.py`](build/tracks.py) is the only place a slot number, a master and a cut offset are written down. `music.xml` and the Lua slot table are generated from it, and `build/verify.py` checks the result. Editing generated files is then impossible to do by accident.
+
+**Cutting a five second phrase out of a full track at a musically sensible point.** `build/build_audio.py` searches for the cut instead of taking a fixed offset, and records the offset it chose in `build/cut_points.json` so a human can pin any one of them by hand afterwards.
+
+**Verified Repentance+ audio facts.** Repentance+ routes jingles through the SFX volume channel while loops use the music channel, so the on-file loudness relation between a jingle and a loop is not what the player hears. Plain Repentance uses the music slider for both. `docs/design.md` has the measurements.
+
 ## Requirements
 
 - Soundtrack Menu (`1933285222`)
@@ -87,3 +99,5 @@ On first publish the uploader writes the Workshop item id into the *installed* `
 The masters are copyrighted material from the *Chiikawa* franchise and are not mine to redistribute, so `audio_master/`, `_source_mp4/` and the built `mod/resources/` are excluded. Drop your own masters into `audio_master/`, name them to match the `MASTERS` table in `build/tracks.py`, and the pipeline runs end to end.
 
 `cover.png` and `mod/previewpic.png` are hand-drawn and are included.
+
+Three more repositories from the same run of game-mod work, each written up the same way. [isaac-voice-sfx-pipeline](https://github.com/Osoito/isaac-voice-sfx-pipeline) is the sound effect mod this one's build was reused for, [yukkuri-toolbar-presets](https://github.com/Osoito/yukkuri-toolbar-presets) mods a closed HSP3 game by reading its process memory, and [asset-pipeline](https://github.com/Osoito/asset-pipeline) is the scaffold the two Isaac mods have in common.
