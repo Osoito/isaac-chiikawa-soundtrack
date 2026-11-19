@@ -100,4 +100,4 @@ The masters are copyrighted material from the *Chiikawa* franchise and are not m
 
 `cover.png` and `mod/previewpic.png` are hand-drawn and are included.
 
-Three more repositories from the same run of game-mod work, each written up the same way. [isaac-voice-sfx-pipeline](https://github.com/Osoito/isaac-voice-sfx-pipeline) is the sound effect mod this one's build was reused for, [yukkuri-toolbar-presets](https://github.com/Osoito/yukkuri-toolbar-presets) mods a closed HSP3 game by reading its process memory, and [asset-pipeline](https://github.com/Osoito/asset-pipeline) is the scaffold the two Isaac mods have in common.
+Three more repositories from the same run of game-mod work, each written up the same way. [isaac-voice-sfx-pipeline](https://github.com/Osoito/isaac-voice-sfx-pipeline) is the sound effect mod this one's build was reused for, [yukkuri-toolbar-presets](https://github.com/Osoito/yukkuri-toolbar-presets) mods a closed HSP3 game by reading its process memory, and [slot-assignment-scaffold](https://github.com/Osoito/slot-assignment-scaffold) is the scaffold the two Isaac mods have in common.
