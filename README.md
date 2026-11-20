@@ -1,5 +1,7 @@
 # Chiikawa Soundtrack for The Binding of Isaac: Repentance+
 
+<img src="cover.png" width="300" alt="Workshop cover art, four Chiikawa characters sitting in a boat under the words CHIIKAWA MUSIC">
+
 A Soundtrack Menu compatible music mod. Registers a soundtrack named `Chiikawa` covering all 85 controllable music slots. Published on the Steam Workshop as item [3787641648](https://steamcommunity.com/sharedfiles/filedetails/?id=3787641648).
 
 16 lossless masters have to fill 85 slots, and 22 of those are jingles that need a five second phrase cut out of a full track at a musically sensible point. So the work here is a build. One file holds the slot mapping and the cut points, everything else is generated from it, a checker refuses to produce a build that would fall back to vanilla audio, and a Lua harness verifies the result inside the running game.
